@@ -15,6 +15,8 @@ public class Server {
             Thread clientHandler = new ClientHandler(clientSocket);
             clientHandler.start();
         }
+
+        // serverSocket.close();
     }
 }
 
@@ -35,7 +37,7 @@ class ClientHandler extends Thread {
 
             // Read the file name and size from the client
             String fileName = dataInputStream.readUTF();
-            // long fileSize = dataInputStream.readLong();
+            long fileSize = dataInputStream.readLong();
 
             System.out.println("Receiving file: " + fileName);
 
@@ -48,6 +50,7 @@ class ClientHandler extends Thread {
             while ((bytesRead = dataInputStream.read(buffer)) != -1) {
                 fileOutputStream.write(buffer, 0, bytesRead);
                 totalBytesReceived += bytesRead;
+                // fileSize -= bytesRead;
             }
 
             System.out.println("File received successfully. Size: " + totalBytesReceived + " bytes");

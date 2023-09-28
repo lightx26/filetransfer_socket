@@ -10,7 +10,7 @@ public class Client {
         System.out.println("Connected to server");
 
         // File to send
-        String filePath = "D:\\QUANG\\Hoctap\\Java\\Assignment\\dbconnect_vsc\\socketPractice2\\client-simulate\\asset\\file.txt"; // Replace with the file path you want to send
+        String filePath = "D:\\QUANG\\Hoctap\\Java\\Assignment\\dbconnect_vsc\\client\\client-simulate\\asset\\file.txt"; // Replace with the file path you want to send
 
         // Get the file name and size
         File fileToSend = new File(filePath);
@@ -27,12 +27,13 @@ public class Client {
         dataOutputStream.writeLong(fileSize);
 
         // Input stream to read the file and send it to the server
-        FileInputStream fileInputStream = new FileInputStream(filePath);
+        FileInputStream fileInputStream = new FileInputStream(fileToSend);
         byte[] buffer = new byte[1024];
         int bytesRead;
 
         while ((bytesRead = fileInputStream.read(buffer)) != -1) {
             dataOutputStream.write(buffer, 0, bytesRead);
+            dataOutputStream.flush();
         }
 
         System.out.println("File sent successfully");
